@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+     <!-- Navbar -->
+    <nav class="top-navbar">
+        <div class="brand-logo">
+            <img src="images/navlogo.png" alt="Fitness Hub">
+        </div>
+
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="program.html">Programs</a></li>
+            <li><a href="tracking.html">Tracking</a></li>
+            <li><a href="subscription.html">Subscriptions</a></li>
+            <li><a href="blog.html">Blogs</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+        </ul>
+
+        <div class="nav-right-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search programs" id="searchInput">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+
+            <!-- Before Login -->
+            <button class="register-button" id="registerBtn">Register</button>
+
+            <!-- After Login -->
+            <div class="user-actions" id="userActions">
+               <a href="wishlist.html"> <button class="icon-button" id="wishlistBtn">
+                    <span><i class="fa-regular fa-heart"></i></span>
+                    <span class="badge-count">3</span></a>
+                </button>
+
+                <button class="icon-button" id="notificationBtn">
+                    <span><i class="fa-solid fa-bell"></i></span>
+                    <span class="badge-count">5</span>
+                </button>
+
+                <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop" 
+                     alt="User" class="user-avatar" id="userAvatar">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop" id="modalBackdrop">
+        <!-- Login Modal -->
+        <div class="auth-modal split-modal" id="loginModal" style="display: none;">
+            <div class="modal-image-section" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=600&fit=crop');">
+            </div>
+            <div class="modal-form-section">
+                <button class="modal-close" id="closeLoginModal">×</button>
+                <h2 class="modal-title">Register Free !</h2>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <input type="email" class="input-field" placeholder="Enter your e-mail" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input-field" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Login</button>
+                    <div class="forgot-password">
+                        <a href="#">Forget your password?</a>
+                    </div>
+                </form>
+
+                <div class="divider-text">Sign Up Using</div>
+
+                <div class="social-login">
+                    <button class="social-button google"><i class="fa-brands fa-google"></i></button>
+                    <button class="social-button facebook"><i class="fa-brands fa-facebook-f"></i></button>
+                    <button class="social-button instagram"><i class="fa-brands fa-instagram"></i></button>
+                    <button class="social-button twitter"><i class="fa-brands fa-twitter"></i></button>
+                </div>
+
+                <div class="toggle-auth">
+                    Don't have an account ? <a id="showSignup">Create New Account</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div class="auth-modal split-modal" id="signupModal" style="display: none;">
+            <div class="modal-image-section" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=600&fit=crop');">
+            </div>
+            <div class="modal-form-section">
+                <button class="modal-close" id="closeSignupModal">×</button>
+                <h2 class="modal-title">Sign Up</h2>
+                
+                <form id="signupForm">
+                    <div class="input-group">
+                        <input type="text" class="input-field" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" class="input-field" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input-field" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Sign Up</button>
+                </form>
+
+                <div class="toggle-auth">
+                    Already have an account ? <a id="showLogin">Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dropdown -->
+    <div class="user-dropdown" id="userDropdown">
+        <div class="user-dropdown-header">
+            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop" alt="User">
+            <div class="user-dropdown-info">
+                <h4>John Doe</h4>
+                <p>john.doe@email.com</p>
+            </div>
+        </div>
+        <div class="user-dropdown-menu">
+            <a href="user.html" class="user-dropdown-item"> My Profile</a>
+            <a href="user.html" class="user-dropdown-item"> Settings</a>
+            <a href="user.html" class="user-dropdown-item"> My Progress</a>
+            <a href="user.html" class="user-dropdown-item"> Subscriptions</a>
+            <a href="user.html" class="user-dropdown-item logout" id="logoutBtn"> Logout</a>
+        </div>
+    </div>
+
+    <!-- Notifications Panel -->
+    <div class="notifications-panel" id="notificationsPanel">
+        <div class="notifications-header">
+            <span>Program Notification Messages</span>
+            <span style="color: #ff4757; cursor: pointer;">Clear All</span>
+        </div>
+        <div class="notification-item unread">
+            <div class="notification-title">1. New program Available</div>
+            <div class="notification-message">New program Alert!</div>
+            <div class="notification-message">Advanced fitneswellness Techniques" is now live. Start learning the latest in worldwide and user flows today.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">2. Workout Reminder</div>
+            <div class="notification-message">Time for your daily workout! Don't forget your HIIT session today.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">3. Subscription Expiring</div>
+            <div class="notification-message">Your premium subscription will expire in 3 days. Renew now to continue enjoying premium features.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">4. Achievement Unlocked</div>
+            <div class="notification-message">Congratulations! You've completed 30 days of consistent workouts.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">5. New Trainer Available</div>
+            <div class="notification-message">Check out sessions with our new certified trainer, Sarah Johnson.</div>
+        </div>
+    </div>
+
+     <div class="fitness-container">
+        <div class="fitness-header">
+            <h1>Weekly Progress Tracking</h1>
+            <div class="thero-image"></div>
+        </div>
+
+        <div class="option-grid">
+            <div class="option-card">
+                <input type="checkbox" id="workout-option" class="option-checkbox" onchange="toggleSection('workout')">
+                <label for="workout-option" class="option-label">
+                    <div class="radio-circle"></div>
+                    <span class="option-text">Daily Guided Workouts</span>
+                </label>
+            </div>
+
+            <div class="option-card">
+                <input type="checkbox" id="nutrition-option" class="option-checkbox" onchange="toggleSection('nutrition')">
+                <label for="nutrition-option" class="option-label">
+                    <div class="radio-circle"></div>
+                    <span class="option-text">Nutrition & Meal Plans</span>
+                </label>
+            </div>
+
+            <div class="option-card">
+                <input type="checkbox" id="progress-option" class="option-checkbox" onchange="toggleSection('progress')">
+                <label for="progress-option" class="option-label">
+                    <div class="radio-circle"></div>
+                    <span class="option-text">Weekly Progress Tracking</span>
+                </label>
+            </div>
+
+            <div class="option-card">
+                <input type="checkbox" id="challenge-option" class="option-checkbox" onchange="toggleSection('challenge')">
+                <label for="challenge-option" class="option-label">
+                    <div class="radio-circle"></div>
+                    <span class="option-text">Motivational Challenges</span>
+                </label>
+            </div>
+
+            <div class="option-card">
+                <input type="checkbox" id="expert-option" class="option-checkbox" onchange="toggleSection('expert')">
+                <label for="expert-option" class="option-label">
+                    <div class="radio-circle"></div>
+                    <span class="option-text">Expert Tips & Coaching</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Workout Section -->
+        <div id="workout-section" class="content-section">
+            <h2 class="section-title">Daily Guided Workouts</h2>
+            <div class="workout-card">
+                <h3 style="margin-bottom: 15px;">Today's Workout Plan</h3>
+                <p style="font-size: 1.1em; line-height: 1.6;">
+                    Strength Training - 30 minutes<br>
+                     Cardio Session - 20 minutes<br>
+                     Cool Down & Stretch - 10 minutes
+                </p>
+            </div>
+            <div class="checklist-section">
+                <div class="checklist-title">Workout Types Available:</div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <span>HIIT Training for maximum calorie burn</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <span>Yoga & Flexibility sessions</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <span>Strength & Resistance training</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <span>Cardio & Endurance building</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nutrition Section -->
+        <div id="nutrition-section" class="content-section">
+            <h2 class="section-title">Weekly Meal Plan Overview</h2>
+            <div class="meal-grid">
+                <div class="meal-category">
+                    <h3>Breakfast</h3>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Oatmeal + Berries</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Avocado Toast + Egg</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Smoothie Bowl</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Scrambled Eggs + Toast</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Protein Pancakes</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Yogurt Parfait</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Banana Protein Shake</span>
+                    </div>
+                </div>
+
+                <div class="meal-category">
+                    <h3>Lunch</h3>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Grilled Chicken Bowl</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Tuna Salad Wrap</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Chickpea Salad</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Lentil Soup + Bread</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Chicken Caesar Salad</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Quinoa Tabbouleh Bowl</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Baked Sweet Potato</span>
+                    </div>
+                </div>
+
+                <div class="meal-category">
+                    <h3>Dinner</h3>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Quinoa + Veggie Stir-fry</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Brown Rice + Salmon</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Grilled Turkey Breast</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Zucchini Noodles + Tofu</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Pasta + Lean Meat Sauce</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Veggie Tacos</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Stir-fried Chicken + Rice</span>
+                    </div>
+                </div>
+
+                <div class="meal-category">
+                    <h3>Snack Ideas</h3>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Greek Yogurt + Nuts</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Apple Slices + Peanut Butter</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Protein Bar</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Carrot Sticks + Hummus</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Handful of Almonds</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Rice Cakes + Avocado</span>
+                    </div>
+                    <div class="meal-item">
+                        <div class="check-icon">✓</div>
+                        <span>Cottage Cheese + Fruit</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div id="progress-section" class="content-section">
+            <h2 class="section-title">Weekly Progress Tracking</h2>
+            <div class="progress-stats">
+                <div class="stat-card">
+                    <div class="stat-label">Weight</div>
+                    <div class="stat-value">-0.4 kg</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Workouts</div>
+                    <div class="stat-value">5/7</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Steps</div>
+                    <div class="stat-value">56,700</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Calories</div>
+                    <div class="stat-value">12,320</div>
+                </div>
+            </div>
+
+            <div class="checklist-section">
+                <div class="checklist-title">Initial Assessment & Goal Setting</div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <span>Baseline fitness test (strength, endurance, flexibility)</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <span>Body measurements (weight, BMI, waist/hip ratio)</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <span>Personalized goal setup (e.g., lose 5kg in 4 weeks)</span>
+                </div>
+            </div>
+
+            <div class="checklist-section">
+                <div class="checklist-title">Performance Milestones</div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <span>7-day streaks</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <span>New personal records (e.g., 30-min HIIT without stopping)</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <span>Nutrition adherence for 5 consecutive days</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Challenge Section -->
+        <div id="challenge-section" class="content-section">
+            <h2 class="section-title">Motivational Challenges</h2>
+            <div class="workout-card">
+                <h3 style="margin-bottom: 15px;"> Active Challenges</h3>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                     30-Day Fitness Challenge<br>
+                     Weekly Calorie Burn Goal: 3000 cal<br>
+                     Step Challenge: 10,000 steps/day<br>
+                     Healthy Eating Streak: 7 days
+                </p>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h3 style=" margin-bottom: 20px;">Your Achievement Badges</h3>
+                <div>
+                    <span class="challenge-badge"> 7-Day Streak</span>
+                    <span class="challenge-badge"> Workout Warrior</span>
+                    <span class="challenge-badge"> Nutrition Pro</span>
+                    <span class="challenge-badge"> Step Master</span>
+                    <span class="challenge-badge"> Early Riser</span>
+                    <span class="challenge-badge"> Goal Crusher</span>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top: 30px; ">
+                <h4 style=" margin-bottom: 10px;"> Challenge Tip</h4>
+                <p>Start small and build consistency. Completing challenges releases dopamine, which helps build lasting habits. Focus on one challenge at a time for best results!</p>
+            </div>
+        </div>
+
+        <!-- Expert Section -->
+        <div id="expert-section" class="content-section">
+            <h2 class="section-title">Expert Tips & Coaching</h2>
+            
+            <div class="tip-box">
+                <h4 style=" margin-bottom: 10px;"> Training Tip #1: Progressive Overload</h4>
+                <p>Gradually increase the weight, frequency, or number of repetitions in your strength training routine. This progressive challenge forces your muscles to adapt and grow stronger over time.</p>
+            </div>
+
+            <div class="tip-box" >
+                <h4 style=" margin-bottom: 10px;">Nutrition Tip #2: Meal Prep Sunday</h4>
+                <p>Dedicate 2-3 hours every Sunday to prepare your meals for the week. This strategy reduces decision fatigue, saves time, and ensures you stick to your nutrition goals even on busy days.</p>
+            </div>
+
+            <div class="tip-box" >
+                <h4 style=" margin-bottom: 10px;"> Recovery Tip #3: Sleep is Essential</h4>
+                <p>Aim for 7-9 hours of quality sleep each night. During deep sleep, your body releases growth hormone which aids in muscle recovery and fat metabolism. Poor sleep can undermine your fitness goals.</p>
+            </div>
+
+            <div class="tip-box" >
+                <h4 style=" margin-bottom: 10px;"> Cardio Tip #4: Mix It Up</h4>
+                <p>Vary your cardio workouts between steady-state and interval training. While steady-state builds endurance, HIIT workouts boost metabolism and burn more calories in less time.</p>
+            </div>
+
+            <div class="tip-box">
+                <h4 style=" margin-bottom: 10px;"> Hydration Tip #5: Water First</h4>
+                <p>Drink at least 8-10 glasses of water daily. Start your morning with a glass of water before coffee. Proper hydration improves performance, aids digestion, and helps control appetite.</p>
+            </div>
+
+            <div class="workout-card" >
+                <h3 style="margin-bottom: 15px;"> Need Personal Coaching?</h3>
+                <p style="font-size: 1em; line-height: 1.6;">
+                    Connect with certified fitness trainers and nutritionists for personalized guidance. Get custom workout plans, nutrition advice, and ongoing support tailored to your specific goals and fitness level.
+                </p>
+            </div>
+        </div>
+    </div>
+
+        <!-- Footer Section -->
+        <div class="footer-wrapper">
+            <div class="footer-content">
+                <!-- About Us -->
+                <div class="footer-column">
+                    <div class="footer-logo-section">
+                        <div class="brand-icon">
+                            <img src="images/navlogo.png" alt="Fitness Logo">
+                        </div>
+                    </div>
+                    <h3 class="column-title">About Us</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">Who We Are</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Our Mission</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">How It Works</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Success</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Courses</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-column">
+                    <h3 class="column-title">Quick Links</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">Browse</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Packages</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Categories</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Support</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Features -->
+                <div class="footer-column">
+                    <h3 class="column-title">Feature</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">HIIT</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Strength Yoga</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Cardio</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Cycling</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Social -->
+                <div class="footer-column">
+                    <h3 class="column-title">Contact & Social</h3>
+                    <div class="contact-info">
+                        123 salk Street, Chennai, TN<br>
+                        <a href="tel:+917867980688">+91-7867980-688</a><br>
+                        <a href="mailto:Fitness@fitnesscenter.com">Fitness@fitnesscenter.com</a>
+                    </div>
+                    <div class="social-section">
+                        <div class="social-title">Follow Us On:</div>
+                        <div class="social-icons">
+                            <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-google"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <img src="images/foot logo.png" alt="Gym Equipment" class="gym-equipment">
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright-text">© 2025 Fitness center. All rights reserved.</p>
+                <div class="policy-links">
+                    <a href="#" class="policy-link">Terms & Conditions</a>
+                    <span class="policy-link">|</span>
+                    <a href="#" class="policy-link">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

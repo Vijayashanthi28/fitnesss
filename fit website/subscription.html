@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+     <!-- Navbar -->
+    <nav class="top-navbar">
+        <div class="brand-logo">
+            <img src="images/navlogo.png" alt="Fitness Hub">
+        </div>
+
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="program.html">Programs</a></li>
+            <li><a href="tracking.html">Tracking</a></li>
+            <li><a href="subscription.html">Subscriptions</a></li>
+            <li><a href="blog.html">Blogs</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+        </ul>
+
+        <div class="nav-right-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search programs" id="searchInput">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+
+            <!-- Before Login -->
+            <button class="register-button" id="registerBtn">Register</button>
+
+            <!-- After Login -->
+            <div class="user-actions" id="userActions">
+               <a href="wishlist.html"> <button class="icon-button" id="wishlistBtn">
+                    <span><i class="fa-regular fa-heart"></i></span>
+                    <span class="badge-count">3</span></a>
+                </button>
+
+                <button class="icon-button" id="notificationBtn">
+                    <span><i class="fa-solid fa-bell"></i></span>
+                    <span class="badge-count">5</span>
+                </button>
+
+                <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop" 
+                     alt="User" class="user-avatar" id="userAvatar">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop" id="modalBackdrop">
+        <!-- Login Modal -->
+        <div class="auth-modal split-modal" id="loginModal" style="display: none;">
+            <div class="modal-image-section" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=600&fit=crop');">
+            </div>
+            <div class="modal-form-section">
+                <button class="modal-close" id="closeLoginModal">×</button>
+                <h2 class="modal-title">Register Free !</h2>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <input type="email" class="input-field" placeholder="Enter your e-mail" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input-field" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Login</button>
+                    <div class="forgot-password">
+                        <a href="#">Forget your password?</a>
+                    </div>
+                </form>
+
+                <div class="divider-text">Sign Up Using</div>
+
+                <div class="social-login">
+                    <button class="social-button google"><i class="fa-brands fa-google"></i></button>
+                    <button class="social-button facebook"><i class="fa-brands fa-facebook-f"></i></button>
+                    <button class="social-button instagram"><i class="fa-brands fa-instagram"></i></button>
+                    <button class="social-button twitter"><i class="fa-brands fa-twitter"></i></button>
+                </div>
+
+                <div class="toggle-auth">
+                    Don't have an account ? <a id="showSignup">Create New Account</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div class="auth-modal split-modal" id="signupModal" style="display: none;">
+            <div class="modal-image-section" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=600&fit=crop');">
+            </div>
+            <div class="modal-form-section">
+                <button class="modal-close" id="closeSignupModal">×</button>
+                <h2 class="modal-title">Sign Up</h2>
+                
+                <form id="signupForm">
+                    <div class="input-group">
+                        <input type="text" class="input-field" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" class="input-field" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input-field" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Sign Up</button>
+                </form>
+
+                <div class="toggle-auth">
+                    Already have an account ? <a id="showLogin">Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dropdown -->
+    <div class="user-dropdown" id="userDropdown">
+        <div class="user-dropdown-header">
+            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop" alt="User">
+            <div class="user-dropdown-info">
+                <h4>John Doe</h4>
+                <p>john.doe@email.com</p>
+            </div>
+        </div>
+        <div class="user-dropdown-menu">
+            <a href="user.html" class="user-dropdown-item"> My Profile</a>
+            <a href="user.html" class="user-dropdown-item"> Settings</a>
+            <a href="user.html" class="user-dropdown-item"> My Progress</a>
+            <a href="user.html" class="user-dropdown-item"> Subscriptions</a>
+            <a href="user.html" class="user-dropdown-item logout" id="logoutBtn"> Logout</a>
+        </div>
+    </div>
+
+    <!-- Notifications Panel -->
+    <div class="notifications-panel" id="notificationsPanel">
+        <div class="notifications-header">
+            <span>Program Notification Messages</span>
+            <span style="color: #ff4757; cursor: pointer;">Clear All</span>
+        </div>
+        <div class="notification-item unread">
+            <div class="notification-title">1. New program Available</div>
+            <div class="notification-message">New program Alert!</div>
+            <div class="notification-message">Advanced fitneswellness Techniques" is now live. Start learning the latest in worldwide and user flows today.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">2. Workout Reminder</div>
+            <div class="notification-message">Time for your daily workout! Don't forget your HIIT session today.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">3. Subscription Expiring</div>
+            <div class="notification-message">Your premium subscription will expire in 3 days. Renew now to continue enjoying premium features.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">4. Achievement Unlocked</div>
+            <div class="notification-message">Congratulations! You've completed 30 days of consistent workouts.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">5. New Trainer Available</div>
+            <div class="notification-message">Check out sessions with our new certified trainer, Sarah Johnson.</div>
+        </div>
+    </div>
+
+      <div class="pricing-wrapper">
+        <h1 class="main-heading">Subscription</h1>
+
+        <!-- Pricing Cards -->
+        <div class="plans-grid">
+            <!-- Basic Plan -->
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h2 class="plan-name">Basic Plan</h2>
+                    <div class="plan-cost">$7<span>/Mon</span></div>
+                </div>
+
+                <ul class="features-list">
+                    <li class="feature-item">
+                        <span class="check-icon active">✓</span>
+                        <span>Limited Access only</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon inactive">✗</span>
+                        <span>Group challenges</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon inactive">✗</span>
+                        <span>All Resources</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon inactive">✗</span>
+                        <span>Nutrition tracking</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon inactive">✗</span>
+                        <span>Trainer support</span>
+                    </li>
+                </ul>
+
+                <div class="action-buttons">
+                    <button class="btn-primary">Subscribe Now</button>
+                    <button class="btn-secondary">Viewsold</button>
+                </div>
+            </div>
+
+            <!-- Premium Plan (Featured) -->
+            <div class="plan-card featured">
+                <div class="plan-header">
+                    <h2 class="plan-name">Premium Plan</h2>
+                    <div class="plan-cost">$39<span>/Mon</span></div>
+                    <span class="trial-badge blue">14 Days Free Trial</span>
+                </div>
+
+                <ul class="features-list">
+                    <li class="feature-item">
+                        <span class="check-icon active">✓</span>
+                        <span>Access to advanced workouts</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon active">✓</span>
+                        <span>Group challenges</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon active">✓</span>
+                        <span>All Resources</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon active">✓</span>
+                        <span>Nutrition tracking</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon active">✓</span>
+                        <span>Trainer support</span>
+                    </li>
+                </ul>
+
+                <div class="action-buttons">
+                    <button class="btn-primary">Subscribe Now</button>
+                    <button class="btn-secondary">View price</button>
+                </div>
+            </div>
+
+            <!-- Standard Plan -->
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h2 class="plan-name">Standard Plan</h2>
+                    <div class="plan-cost">$19<span>/Mon</span></div>
+                    <span class="trial-badge">7 Days Free Trial</span>
+                </div>
+
+                <ul class="features-list">
+                    <li class="feature-item">
+                        <span class="check-icon active">✓</span>
+                        <span>Access to advanced workouts</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon active">✓</span>
+                        <span>Group Challenges</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon active">✓</span>
+                        <span>All Resources</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon inactive">✗</span>
+                        <span>Nutrition tracking</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="check-icon inactive">✗</span>
+                        <span>Trainer support</span>
+                    </li>
+                </ul>
+
+                <div class="action-buttons">
+                    <button class="btn-primary">Subscribe Now</button>
+                    <button class="btn-secondary">Viewsold</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plan Details Section -->
+        <div class="details-section">
+            <div class="details-grid">
+                <!-- Basic Plan Details -->
+                <div class="detail-block">
+                    <h3 class="detail-title">Basic Plan details</h3>
+                    <ul class="detail-list">
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>Limited (Beginner only)</span>
+                        </li>
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>10 Videos</span>
+                        </li>
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>Mobile Only</span>
+                        </li>
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>₹199/month</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Premium Plan Details -->
+                <div class="detail-block">
+                    <h3 class="detail-title">Premium Plan details</h3>
+                    <ul class="detail-list">
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>Basic to Intermediate</span>
+                        </li>
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>20+ Videos</span>
+                        </li>
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>Mobile Only</span>
+                        </li>
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>₹499/month</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Standard Plan Details -->
+                <div class="detail-block">
+                    <h3 class="detail-title">Standard Plan details</h3>
+                    <ul class="detail-list">
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>Full Access (All levels)</span>
+                        </li>
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>200+ HD Tutorials</span>
+                        </li>
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>Mobile + Web</span>
+                        </li>
+                        <li class="detail-item">
+                            <span class="detail-icon">✓</span>
+                            <span>₹999/month</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Footer Section -->
+        <div class="footer-wrapper">
+            <div class="footer-content">
+                <!-- About Us -->
+                <div class="footer-column">
+                    <div class="footer-logo-section">
+                        <div class="brand-icon">
+                            <img src="images/navlogo.png" alt="Fitness Logo">
+                        </div>
+                    </div>
+                    <h3 class="column-title">About Us</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">Who We Are</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Our Mission</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">How It Works</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Success</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Courses</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-column">
+                    <h3 class="column-title">Quick Links</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">Browse</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Packages</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Categories</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Support</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Features -->
+                <div class="footer-column">
+                    <h3 class="column-title">Feature</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">HIIT</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Strength Yoga</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Cardio</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Cycling</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Social -->
+                <div class="footer-column">
+                    <h3 class="column-title">Contact & Social</h3>
+                    <div class="contact-info">
+                        123 salk Street, Chennai, TN<br>
+                        <a href="tel:+917867980688">+91-7867980-688</a><br>
+                        <a href="mailto:Fitness@fitnesscenter.com">Fitness@fitnesscenter.com</a>
+                    </div>
+                    <div class="social-section">
+                        <div class="social-title">Follow Us On:</div>
+                        <div class="social-icons">
+                            <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-google"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <img src="images/foot logo.png" alt="Gym Equipment" class="gym-equipment">
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright-text">© 2025 Fitness center. All rights reserved.</p>
+                <div class="policy-links">
+                    <a href="#" class="policy-link">Terms & Conditions</a>
+                    <span class="policy-link">|</span>
+                    <a href="#" class="policy-link">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

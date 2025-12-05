@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+     <!-- Navbar -->
+    <nav class="top-navbar">
+        <div class="brand-logo">
+            <img src="images/navlogo.png" alt="Fitness Hub">
+        </div>
+
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="program.html">Programs</a></li>
+            <li><a href="tracking.html">Tracking</a></li>
+            <li><a href="subscription.html">Subscriptions</a></li>
+            <li><a href="blog.html">Blogs</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+        </ul>
+
+        <div class="nav-right-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search programs" id="searchInput">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+
+            <!-- Before Login -->
+            <button class="register-button" id="registerBtn">Register</button>
+
+            <!-- After Login -->
+            <div class="user-actions" id="userActions">
+               <a href="wishlist.html"> <button class="icon-button" id="wishlistBtn">
+                    <span><i class="fa-regular fa-heart"></i></span>
+                    <span class="badge-count">3</span></a>
+                </button>
+
+                <button class="icon-button" id="notificationBtn">
+                    <span><i class="fa-solid fa-bell"></i></span>
+                    <span class="badge-count">5</span>
+                </button>
+
+                <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop" 
+                     alt="User" class="user-avatar" id="userAvatar">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop" id="modalBackdrop">
+        <!-- Login Modal -->
+        <div class="auth-modal split-modal" id="loginModal" style="display: none;">
+            <div class="modal-image-section" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=600&fit=crop');">
+            </div>
+            <div class="modal-form-section">
+                <button class="modal-close" id="closeLoginModal">×</button>
+                <h2 class="modal-title">Register Free !</h2>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <input type="email" class="input-field" placeholder="Enter your e-mail" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input-field" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Login</button>
+                    <div class="forgot-password">
+                        <a href="#">Forget your password?</a>
+                    </div>
+                </form>
+
+                <div class="divider-text">Sign Up Using</div>
+
+                <div class="social-login">
+                    <button class="social-button google"><i class="fa-brands fa-google"></i></button>
+                    <button class="social-button facebook"><i class="fa-brands fa-facebook-f"></i></button>
+                    <button class="social-button instagram"><i class="fa-brands fa-instagram"></i></button>
+                    <button class="social-button twitter"><i class="fa-brands fa-twitter"></i></button>
+                </div>
+
+                <div class="toggle-auth">
+                    Don't have an account ? <a id="showSignup">Create New Account</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div class="auth-modal split-modal" id="signupModal" style="display: none;">
+            <div class="modal-image-section" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=600&fit=crop');">
+            </div>
+            <div class="modal-form-section">
+                <button class="modal-close" id="closeSignupModal">×</button>
+                <h2 class="modal-title">Sign Up</h2>
+                
+                <form id="signupForm">
+                    <div class="input-group">
+                        <input type="text" class="input-field" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" class="input-field" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input-field" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Sign Up</button>
+                </form>
+
+                <div class="toggle-auth">
+                    Already have an account ? <a id="showLogin">Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dropdown -->
+    <div class="user-dropdown" id="userDropdown">
+        <div class="user-dropdown-header">
+            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop" alt="User">
+            <div class="user-dropdown-info">
+                <h4>John Doe</h4>
+                <p>john.doe@email.com</p>
+            </div>
+        </div>
+        <div class="user-dropdown-menu">
+            <a href="user.html" class="user-dropdown-item"> My Profile</a>
+            <a href="user.html" class="user-dropdown-item"> Settings</a>
+            <a href="user.html" class="user-dropdown-item"> My Progress</a>
+            <a href="user.html" class="user-dropdown-item"> Subscriptions</a>
+            <a href="user.html" class="user-dropdown-item logout" id="logoutBtn"> Logout</a>
+        </div>
+    </div>
+
+    <!-- Notifications Panel -->
+    <div class="notifications-panel" id="notificationsPanel">
+        <div class="notifications-header">
+            <span>Program Notification Messages</span>
+            <span style="color: #ff4757; cursor: pointer;">Clear All</span>
+        </div>
+        <div class="notification-item unread">
+            <div class="notification-title">1. New program Available</div>
+            <div class="notification-message">New program Alert!</div>
+            <div class="notification-message">Advanced fitneswellness Techniques" is now live. Start learning the latest in worldwide and user flows today.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">2. Workout Reminder</div>
+            <div class="notification-message">Time for your daily workout! Don't forget your HIIT session today.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">3. Subscription Expiring</div>
+            <div class="notification-message">Your premium subscription will expire in 3 days. Renew now to continue enjoying premium features.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">4. Achievement Unlocked</div>
+            <div class="notification-message">Congratulations! You've completed 30 days of consistent workouts.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">5. New Trainer Available</div>
+            <div class="notification-message">Check out sessions with our new certified trainer, Sarah Johnson.</div>
+        </div>
+    </div>
+
+     <div class="account-wrapper">
+        <div class="account-header">
+            <h1>My Account</h1>
+            <div class="profile-avatar"><img src="data:image/jpeg;base64,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"></div>
+        </div>
+
+        <div class="account-container">
+            <!-- Navigation Sidebar -->
+            <div class="navigation-sidebar">
+                <button class="nav-tab-button active-tab" onclick="switchTab('personal')">
+                    Personal Information
+                </button>
+                <button class="nav-tab-button" onclick="redirectToProgram()">
+                    My Program
+                </button>
+                <button class="nav-tab-button" onclick="switchTab('password')">
+                    Password Manager
+                </button>
+                <button class="nav-tab-button" onclick="switchTab('logout')">
+                    Logout
+                </button>
+            </div>
+
+            <!-- Content Display Area -->
+            <div class="content-display-area">
+                <!-- Personal Information Panel -->
+                <div id="personal-panel" class="content-panel active-content">
+                    <h2 class="panel-heading">Personal Information</h2>
+                    
+                    <div class="dual-input-container">
+                        <div class="input-field-group">
+                            <label class="input-field-label">First Name</label>
+                            <input type="text" class="text-input-field" placeholder="Enter first name">
+                        </div>
+                        <div class="input-field-group">
+                            <label class="input-field-label">Last Name</label>
+                            <input type="text" class="text-input-field" placeholder="Enter last name">
+                        </div>
+                    </div>
+
+                    <div class="input-field-group">
+                        <label class="input-field-label">E-mail</label>
+                        <input type="email" class="text-input-field" placeholder="Enter your e-mail">
+                    </div>
+
+                    <div class="input-field-group">
+                        <label class="input-field-label">Phone</label>
+                        <input type="tel" class="text-input-field" placeholder="Enter phone number">
+                    </div>
+
+                    <div class="input-field-group">
+                        <label class="input-field-label">Gender</label>
+                        <input type="text" class="text-input-field" placeholder="Select gender">
+                    </div>
+
+                    <button class="action-button-primary" onclick="updatePersonalInfo()">
+                        Update Change
+                    </button>
+                </div>
+
+                <!-- Password Manager Panel -->
+                <div id="password-panel" class="content-panel">
+                    <h2 class="panel-heading">Password Manager</h2>
+
+                    <div class="input-field-group">
+                        <label class="input-field-label">Password*</label>
+                        <input type="password" class="text-input-field" placeholder="Enter Password">
+                        <div class="password-link-helper">
+                            <a href="#" onclick="forgotPassword(event)">Forget Password</a>
+                        </div>
+                    </div>
+
+                    <div class="input-field-group">
+                        <label class="input-field-label">New Password*</label>
+                        <input type="password" class="text-input-field" placeholder="Enter Password">
+                    </div>
+
+                    <div class="input-field-group">
+                        <label class="input-field-label">Confirm New Password</label>
+                        <input type="password" class="text-input-field" placeholder="Enter Password">
+                    </div>
+
+                    <button class="action-button-primary" onclick="updatePassword()">
+                        Update Password
+                    </button>
+                </div>
+
+                <!-- Logout Panel -->
+                <div id="logout-panel" class="content-panel">
+                    <div class="logout-confirmation-box">
+                        <h2>Log Out</h2>
+                        <p>Are you sure, you want to log out?</p>
+                        <button class="action-button-primary" onclick="confirmLogout()">
+                            Yes, Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Footer Section -->
+        <div class="footer-wrapper">
+            <div class="footer-content">
+                <!-- About Us -->
+                <div class="footer-column">
+                    <div class="footer-logo-section">
+                        <div class="brand-icon">
+                            <img src="images/navlogo.png" alt="Fitness Logo">
+                        </div>
+                    </div>
+                    <h3 class="column-title">About Us</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">Who We Are</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Our Mission</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">How It Works</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Success</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Courses</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-column">
+                    <h3 class="column-title">Quick Links</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">Browse</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Packages</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Categories</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Support</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Features -->
+                <div class="footer-column">
+                    <h3 class="column-title">Feature</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">HIIT</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Strength Yoga</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Cardio</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Cycling</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Social -->
+                <div class="footer-column">
+                    <h3 class="column-title">Contact & Social</h3>
+                    <div class="contact-info">
+                        123 salk Street, Chennai, TN<br>
+                        <a href="tel:+917867980688">+91-7867980-688</a><br>
+                        <a href="mailto:Fitness@fitnesscenter.com">Fitness@fitnesscenter.com</a>
+                    </div>
+                    <div class="social-section">
+                        <div class="social-title">Follow Us On:</div>
+                        <div class="social-icons">
+                            <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-google"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <img src="images/foot logo.png" alt="Gym Equipment" class="gym-equipment">
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright-text">© 2025 Fitness center. All rights reserved.</p>
+                <div class="policy-links">
+                    <a href="#" class="policy-link">Terms & Conditions</a>
+                    <span class="policy-link">|</span>
+                    <a href="#" class="policy-link">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

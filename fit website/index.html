@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+     <!-- Navbar -->
+    <nav class="top-navbar">
+        <div class="brand-logo">
+            <img src="images/navlogo.png" alt="Fitness Hub">
+        </div>
+
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="program.html">Programs</a></li>
+            <li><a href="tracking.html">Tracking</a></li>
+            <li><a href="subscription.html">Subscriptions</a></li>
+            <li><a href="blog.html">Blogs</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+        </ul>
+
+        <div class="nav-right-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search programs" id="searchInput">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+
+            <!-- Before Login -->
+            <button class="register-button" id="registerBtn">Register</button>
+
+            <!-- After Login -->
+            <div class="user-actions" id="userActions">
+               <a href="wishlist.html"> <button class="icon-button" id="wishlistBtn">
+                    <span><i class="fa-regular fa-heart"></i></span>
+                    <span class="badge-count">3</span></a>
+                </button>
+
+                <button class="icon-button" id="notificationBtn">
+                    <span><i class="fa-solid fa-bell"></i></span>
+                    <span class="badge-count">5</span>
+                </button>
+
+                <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop" 
+                     alt="User" class="user-avatar" id="userAvatar">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop" id="modalBackdrop">
+        <!-- Login Modal -->
+        <div class="auth-modal split-modal" id="loginModal" style="display: none;">
+            <div class="modal-image-section" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=600&fit=crop');">
+            </div>
+            <div class="modal-form-section">
+                <button class="modal-close" id="closeLoginModal">×</button>
+                <h2 class="modal-title">Register Free !</h2>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <input type="email" class="input-field" placeholder="Enter your e-mail" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input-field" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Login</button>
+                    <div class="forgot-password">
+                        <a href="#">Forget your password?</a>
+                    </div>
+                </form>
+
+                <div class="divider-text">Sign Up Using</div>
+
+                <div class="social-login">
+                    <button class="social-button google"><i class="fa-brands fa-google"></i></button>
+                    <button class="social-button facebook"><i class="fa-brands fa-facebook-f"></i></button>
+                    <button class="social-button instagram"><i class="fa-brands fa-instagram"></i></button>
+                    <button class="social-button twitter"><i class="fa-brands fa-twitter"></i></button>
+                </div>
+
+                <div class="toggle-auth">
+                    Don't have an account ? <a id="showSignup">Create New Account</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div class="auth-modal split-modal" id="signupModal" style="display: none;">
+            <div class="modal-image-section" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=600&fit=crop');">
+            </div>
+            <div class="modal-form-section">
+                <button class="modal-close" id="closeSignupModal">×</button>
+                <h2 class="modal-title">Sign Up</h2>
+                
+                <form id="signupForm">
+                    <div class="input-group">
+                        <input type="text" class="input-field" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" class="input-field" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input-field" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Sign Up</button>
+                </form>
+
+                <div class="toggle-auth">
+                    Already have an account ? <a id="showLogin">Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dropdown -->
+    <div class="user-dropdown" id="userDropdown">
+        <div class="user-dropdown-header">
+            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop" alt="User">
+            <div class="user-dropdown-info">
+                <h4>John Doe</h4>
+                <p>john.doe@email.com</p>
+            </div>
+        </div>
+        <div class="user-dropdown-menu">
+            <a href="user.html" class="user-dropdown-item"> My Profile</a>
+            <a href="user.html" class="user-dropdown-item"> Settings</a>
+            <a href="user.html" class="user-dropdown-item"> My Progress</a>
+            <a href="user.html" class="user-dropdown-item"> Subscriptions</a>
+            <a href="user.html" class="user-dropdown-item logout" id="logoutBtn"> Logout</a>
+        </div>
+    </div>
+
+    <!-- Notifications Panel -->
+    <div class="notifications-panel" id="notificationsPanel">
+        <div class="notifications-header">
+            <span>Program Notification Messages</span>
+            <span style="color: #ff4757; cursor: pointer;">Clear All</span>
+        </div>
+        <div class="notification-item unread">
+            <div class="notification-title">1. New program Available</div>
+            <div class="notification-message">New program Alert!</div>
+            <div class="notification-message">Advanced fitneswellness Techniques" is now live. Start learning the latest in worldwide and user flows today.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">2. Workout Reminder</div>
+            <div class="notification-message">Time for your daily workout! Don't forget your HIIT session today.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">3. Subscription Expiring</div>
+            <div class="notification-message">Your premium subscription will expire in 3 days. Renew now to continue enjoying premium features.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">4. Achievement Unlocked</div>
+            <div class="notification-message">Congratulations! You've completed 30 days of consistent workouts.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">5. New Trainer Available</div>
+            <div class="notification-message">Check out sessions with our new certified trainer, Sarah Johnson.</div>
+        </div>
+    </div>
+
+    <div style="height: 100px;"></div>
+      <section class="hero-banner">
+        <div class="hero-background"></div>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content-wrapper">
+            <h1 class="hero-main-title">Transform Your Body</h1>
+            <h2 class="hero-subtitle">Lead Your Life</h2>
+            
+            <div class="hero-action-buttons">
+                <button class="primary-cta-btn">Start Journey</button>
+                <button class="secondary-cta-btn">
+                    Enquiry
+                    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="hero-description-box">
+                <p class="hero-description-text">
+                    A personalized fitness journey designed to help you build strength, burn fat and boost confidence — 
+                    with expert trainers, proven programs and real results.
+                </p>
+            </div>
+        </div>
+        
+        <div class="testimonial-badge">
+            <div class="testimonial-avatars">
+                <div class="avatar-circle avatar-1"></div>
+                <div class="avatar-circle avatar-2"></div>
+                <div class="avatar-circle avatar-3"></div>
+                <div class="avatar-circle avatar-4"></div>
+            </div>
+            <div class="rating-plus-icon">+</div>
+            <div class="testimonial-info">
+                <span class="rating-value">4.9k Ratings+</span>
+                <span class="customer-count">Trusted by 51K customers</span>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+     <section class="hero-section">
+        <h1>Why Choose Us</h1>
+        <div class="features-grid">
+            <div class="feature-card">
+                <img src="images/in 1.png" alt="Expert Trainers" class="feature-img">
+                <h3 class="feature-title">Expert Trainers</h3>
+            </div>
+            <div class="feature-card">
+                <img src="images/in 2.png" alt="Flexible Options" class="feature-img">
+                <h3 class="feature-title">Flexible Options</h3>
+            </div>
+            <div class="feature-card">
+                <img src="images/in 3.png" alt="Cutting Edge Tracking" class="feature-img">
+                <h3 class="feature-title">Cutting-Edge Tracking</h3>
+            </div>
+            <div class="feature-card">
+                <img src="images/in 4.png" alt="Community Support" class="feature-img">
+                <h3 class="feature-title">Community Support</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <img src="images/about.png" alt="Trainer with client" class="about-img">
+        <div class="about-content">
+            <h2>About us</h2>
+            <p>We're passionate about helping you become the strongest version of yourself! With certified trainers, science-backed programs and a community that motivates you every step of the way, we make fitness simple, accessible and effective — for everyone.</p>
+        </div>
+    </section>
+
+    <section class="programs-section">
+        <h2>Popular Programs</h2>
+        <div class="programs-grid">
+            <div class="program-card">
+                <div class="program-badge1">❤</div>
+                <div class="program-header">
+                    <h3 class="program-name">Yoga for Beginners</h3>
+                    <p class="program-duration">6 weeks</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop" alt="Yoga" class="program-img">
+                <div class="program-details">
+                    <p class="program-benefit">Improve Flexibility</p>
+                    <p class="program-trainer">Trainer: Thompson</p>
+                    <p class="program-price">Rupees: 2500/Month</p>
+                    <button class="action-btn">Start now</button>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <div class="program-badge1">❤</div>
+                <div class="program-header">
+                    <h3 class="program-name">HIIT & Cross fit</h3>
+                    <p class="program-duration">6 weeks</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=300&fit=crop" alt="HIIT" class="program-img">
+                <div class="program-details">
+                    <p class="program-benefit">Improve Flexibility</p>
+                    <p class="program-trainer">Trainer: Thompson</p>
+                    <p class="program-price">Rupees: 2500/Month</p>
+                    <button class="action-btn">Start now</button>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <div class="program-badge1">❤</div>
+                <div class="program-header">
+                    <h3 class="program-name">Nutrition for beginers</h3>
+                    <p class="program-duration">6 weeks</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop" alt="Nutrition" class="program-img">
+                <div class="program-details">
+                    <p class="program-benefit">Improve Flexibility</p>
+                    <p class="program-trainer">Trainer: Thompson</p>
+                    <p class="program-price">Rupees: 2500/Month</p>
+                    <button class="action-btn">Start now</button>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <div class="program-badge1">❤</div>
+                <div class="program-header">
+                    <h3 class="program-name">Cardio</h3>
+                    <p class="program-duration">6 weeks</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=300&fit=crop" alt="Cardio" class="program-img">
+                <div class="program-details">
+                    <p class="program-benefit">Improve Flexibility</p>
+                    <p class="program-trainer">Trainer: Thompson</p>
+                    <p class="program-price">Rupees: 2500/Month</p>
+                    <button class="action-btn">Start now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+     <div class="trainers-container">
+        <h1 class="section-heading">Our Trainers</h1>
+        <div class="trainers-showcase">
+            <div class="trainer-profile">
+                <img src="images/t1.png" alt="Emma Thompson" class="trainer-photo">
+                <div class="trainer-info">
+                    <h2 class="trainer-name">Emma Thompson</h2>
+                    <p class="trainer-specialty">Specialty: Nutrition & Weight Loss</p>
+                    <p class="trainer-credentials"><strong>Certifications:</strong> ACE Certified Specialist</p>
+                    <p class="trainer-experience"><strong>Experience:</strong> 7 years in nutrition + training</p>
+                </div>
+            </div>
+
+            <div class="trainer-profile">
+                <img src="images/t2.png" alt="John Carter" class="trainer-photo">
+                <div class="trainer-info">
+                    <h2 class="trainer-name">John Carter</h2>
+                    <p class="trainer-specialty">Specialty: Yoga & Mindfulness</p>
+                    <p class="trainer-credentials"><strong>Certifications:</strong> Yoga Alliance RYT-500</p>
+                    <p class="trainer-experience"><strong>Experience:</strong> 5 Years in holistic wellness</p>
+                </div>
+            </div>
+
+            <div class="trainer-profile">
+                <img src="images/t3.png" alt="Sophiya Mart" class="trainer-photo">
+                <div class="trainer-info">
+                    <h2 class="trainer-name">Sophiya Mart</h2>
+                    <p class="trainer-specialty">Specialty: Nutrition & Weight Loss</p>
+                    <p class="trainer-credentials"><strong>Certifications:</strong> ACE Certified Specialist</p>
+                    <p class="trainer-experience"><strong>Experience:</strong> 7 years in nutrition + training</p>
+                </div>
+            </div>
+
+            <div class="trainer-profile">
+                <img src="images/t5.png" alt="David Thompson" class="trainer-photo">
+                <div class="trainer-info">
+                    <h2 class="trainer-name">David Thompson</h2>
+                    <p class="trainer-specialty">Specialty: Strength & Functional</p>
+                    <p class="trainer-credentials"><strong>Certifications:</strong> Cross Fit Level 2 Coach</p>
+                    <p class="trainer-experience"><strong>Experience:</strong> 10 years in functional fitness</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-wrapper">
+        <h1 class="section-heading">Frequently Asked Questions (FAQ)</h1>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question-wrapper">
+                    <h3 class="faq-question-text">1. Do I need to be fit before joining?</h3>
+                    <div class="faq-toggle-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer-container">
+                    <p class="faq-answer-text">Not at all! Our programs are designed for all levels — from beginners to advanced athletes. Trainers adjust workouts based on your ability.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question-wrapper">
+                    <h3 class="faq-question-text">2. What types of classes do you offer?</h3>
+                    <div class="faq-toggle-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer-container">
+                    <p class="faq-answer-text">We offer a wide range: HIIT, Strength Training, Yoga, Pilates, CrossFit, Spin, Zumba, Boxing, and more.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question-wrapper">
+                    <h3 class="faq-question-text">3. Can I try a class before committing?</h3>
+                    <div class="faq-toggle-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer-container">
+                    <p class="faq-answer-text">Yes! We offer a free trial class so you can experience our workouts before signing up.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question-wrapper">
+                    <h3 class="faq-question-text">4. What equipment do I need for online classes?</h3>
+                    <div class="faq-toggle-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer-container">
+                    <p class="faq-answer-text">Most classes require just a mat and comfortable workout gear. Some strength classes may recommend dumbbells or resistance bands.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Footer Section -->
+        <div class="footer-wrapper">
+            <div class="footer-content">
+                <!-- About Us -->
+                <div class="footer-column">
+                    <div class="footer-logo-section">
+                        <div class="brand-icon">
+                            <img src="images/navlogo.png" alt="Fitness Logo">
+                        </div>
+                    </div>
+                    <h3 class="column-title">About Us</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">Who We Are</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Our Mission</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">How It Works</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Success</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Courses</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-column">
+                    <h3 class="column-title">Quick Links</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">Browse</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Packages</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Categories</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Support</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Features -->
+                <div class="footer-column">
+                    <h3 class="column-title">Feature</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">HIIT</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Strength Yoga</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Cardio</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Cycling</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Social -->
+                <div class="footer-column">
+                    <h3 class="column-title">Contact & Social</h3>
+                    <div class="contact-info">
+                        123 salk Street, Chennai, TN<br>
+                        <a href="tel:+917867980688">+91-7867980-688</a><br>
+                        <a href="mailto:Fitness@fitnesscenter.com">Fitness@fitnesscenter.com</a>
+                    </div>
+                    <div class="social-section">
+                        <div class="social-title">Follow Us On:</div>
+                        <div class="social-icons">
+                            <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-google"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <img src="images/foot logo.png" alt="Gym Equipment" class="gym-equipment">
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright-text">© 2025 Fitness center. All rights reserved.</p>
+                <div class="policy-links">
+                    <a href="#" class="policy-link">Terms & Conditions</a>
+                    <span class="policy-link">|</span>
+                    <a href="#" class="policy-link">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

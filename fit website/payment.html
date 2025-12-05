@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+     <!-- Navbar -->
+    <nav class="top-navbar">
+        <div class="brand-logo">
+            <img src="images/navlogo.png" alt="Fitness Hub">
+        </div>
+
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="program.html">Programs</a></li>
+            <li><a href="tracking.html">Tracking</a></li>
+            <li><a href="subscription.html">Subscriptions</a></li>
+            <li><a href="blog.html">Blogs</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+        </ul>
+
+        <div class="nav-right-section">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search programs" id="searchInput">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+
+            <!-- Before Login -->
+            <button class="register-button" id="registerBtn">Register</button>
+
+            <!-- After Login -->
+            <div class="user-actions" id="userActions">
+               <a href="wishlist.html"> <button class="icon-button" id="wishlistBtn">
+                    <span><i class="fa-regular fa-heart"></i></span>
+                    <span class="badge-count">3</span></a>
+                </button>
+
+                <button class="icon-button" id="notificationBtn">
+                    <span><i class="fa-solid fa-bell"></i></span>
+                    <span class="badge-count">5</span>
+                </button>
+
+                <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop" 
+                     alt="User" class="user-avatar" id="userAvatar">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop" id="modalBackdrop">
+        <!-- Login Modal -->
+        <div class="auth-modal split-modal" id="loginModal" style="display: none;">
+            <div class="modal-image-section" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=600&fit=crop');">
+            </div>
+            <div class="modal-form-section">
+                <button class="modal-close" id="closeLoginModal">×</button>
+                <h2 class="modal-title">Register Free !</h2>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <input type="email" class="input-field" placeholder="Enter your e-mail" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input-field" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Login</button>
+                    <div class="forgot-password">
+                        <a href="#">Forget your password?</a>
+                    </div>
+                </form>
+
+                <div class="divider-text">Sign Up Using</div>
+
+                <div class="social-login">
+                    <button class="social-button google"><i class="fa-brands fa-google"></i></button>
+                    <button class="social-button facebook"><i class="fa-brands fa-facebook-f"></i></button>
+                    <button class="social-button instagram"><i class="fa-brands fa-instagram"></i></button>
+                    <button class="social-button twitter"><i class="fa-brands fa-twitter"></i></button>
+                </div>
+
+                <div class="toggle-auth">
+                    Don't have an account ? <a id="showSignup">Create New Account</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Modal -->
+        <div class="auth-modal split-modal" id="signupModal" style="display: none;">
+            <div class="modal-image-section" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=600&fit=crop');">
+            </div>
+            <div class="modal-form-section">
+                <button class="modal-close" id="closeSignupModal">×</button>
+                <h2 class="modal-title">Sign Up</h2>
+                
+                <form id="signupForm">
+                    <div class="input-group">
+                        <input type="text" class="input-field" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" class="input-field" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input-field" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="submit-button">Sign Up</button>
+                </form>
+
+                <div class="toggle-auth">
+                    Already have an account ? <a id="showLogin">Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dropdown -->
+    <div class="user-dropdown" id="userDropdown">
+        <div class="user-dropdown-header">
+            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100&h=100&fit=crop" alt="User">
+            <div class="user-dropdown-info">
+                <h4>John Doe</h4>
+                <p>john.doe@email.com</p>
+            </div>
+        </div>
+        <div class="user-dropdown-menu">
+            <a href="user.html" class="user-dropdown-item"> My Profile</a>
+            <a href="user.html" class="user-dropdown-item"> Settings</a>
+            <a href="user.html" class="user-dropdown-item"> My Progress</a>
+            <a href="user.html" class="user-dropdown-item"> Subscriptions</a>
+            <a href="user.html" class="user-dropdown-item logout" id="logoutBtn"> Logout</a>
+        </div>
+    </div>
+
+    <!-- Notifications Panel -->
+    <div class="notifications-panel" id="notificationsPanel">
+        <div class="notifications-header">
+            <span>Program Notification Messages</span>
+            <span style="color: #ff4757; cursor: pointer;">Clear All</span>
+        </div>
+        <div class="notification-item unread">
+            <div class="notification-title">1. New program Available</div>
+            <div class="notification-message">New program Alert!</div>
+            <div class="notification-message">Advanced fitneswellness Techniques" is now live. Start learning the latest in worldwide and user flows today.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">2. Workout Reminder</div>
+            <div class="notification-message">Time for your daily workout! Don't forget your HIIT session today.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">3. Subscription Expiring</div>
+            <div class="notification-message">Your premium subscription will expire in 3 days. Renew now to continue enjoying premium features.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">4. Achievement Unlocked</div>
+            <div class="notification-message">Congratulations! You've completed 30 days of consistent workouts.</div>
+        </div>
+        <div class="notification-item">
+            <div class="notification-title">5. New Trainer Available</div>
+            <div class="notification-message">Check out sessions with our new certified trainer, Sarah Johnson.</div>
+        </div>
+    </div>
+
+      <div class="premium-program-container">
+        <h1 class="program-main-title">Premium program</h1>
+
+        <!-- Main Content Grid -->
+        <div class="program-content-layout">
+            <!-- Premium Plan Card -->
+            <div class="premium-plan-showcase">
+                <div class="plan-header-section">
+                    <h2 class="plan-name-title">Premium Plan</h2>
+                    <span class="trial-period-badge">14 Days Free Trial</span>
+                </div>
+
+                <div class="plan-cost-display">$39/Mon</div>
+
+                <button class="subscribe-action-btn" onclick="scrollToPayment()">Subscribe Now</button>
+
+                <div class="trainer-info-label">Trainer : Sofiya Thomas</div>
+
+                <div class="plan-features-list">
+                    <div class="feature-item-element">
+                        <div class="feature-check-indicator">✓</div>
+                        <span class="feature-text-content">Access to advanced workouts</span>
+                    </div>
+                    <div class="feature-item-element">
+                        <div class="feature-check-indicator">✓</div>
+                        <span class="feature-text-content">Group challenges</span>
+                    </div>
+                    <div class="feature-item-element">
+                        <div class="feature-check-indicator">✓</div>
+                        <span class="feature-text-content">All Resources</span>
+                    </div>
+                    <div class="feature-item-element">
+                        <div class="feature-check-indicator">✓</div>
+                        <span class="feature-text-content">Nutrition tracking</span>
+                    </div>
+                    <div class="feature-item-element">
+                        <div class="feature-check-indicator">✓</div>
+                        <span class="feature-text-content">Trainer support</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Included Features Panel -->
+            <div class="included-features-panel">
+                <h3 class="features-section-header">Whats:Included</h3>
+
+                <div class="included-feature-row">
+                    <div class="included-check-icon">✓</div>
+                    <span class="included-feature-name">Daily Guided Workouts</span>
+                </div>
+                <div class="included-feature-row">
+                    <div class="included-check-icon">✓</div>
+                    <span class="included-feature-name">Nutrition & Meal Plans</span>
+                </div>
+                <div class="included-feature-row">
+                    <div class="included-check-icon">✓</div>
+                    <span class="included-feature-name">Weekly Progress Tracking</span>
+                </div>
+                <div class="included-feature-row">
+                    <div class="included-check-icon">✓</div>
+                    <span class="included-feature-name">Motivational Challenges</span>
+                </div>
+                <div class="included-feature-row">
+                    <div class="included-check-icon">✓</div>
+                    <span class="included-feature-name">Expert Tips & Coaching</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Selection Dropdown -->
+        <div class="payment-selector-wrapper" id="paymentSection">
+            <div class="payment-dropdown-header" onclick="togglePaymentDropdown()">
+                <span class="payment-header-text">Payment Selection</span>
+                <span class="dropdown-arrow-icon" id="dropdownArrow">▼</span>
+            </div>
+
+            <div class="payment-options-container" id="paymentOptions">
+                <div class="payment-method-option" onclick="selectPaymentMethod('Credit card')">
+                    <span class="payment-method-name">Credit card</span>
+                    <span class="payment-icon-symbol"><img src="data:image/jpeg;base64,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"></span>
+                </div>
+                <div class="payment-method-option" onclick="selectPaymentMethod('Debit card')">
+                    <span class="payment-method-name">Debit card</span>
+                    <span class="payment-icon-symbol"><img src="data:image/jpeg;base64,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"></span>
+                </div>
+                <div class="payment-method-option" onclick="selectPaymentMethod('Google pay')">
+                    <span class="payment-method-name">Google pay</span>
+                    <span class="payment-icon-symbol"><img src="data:image/png;base64,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"></span>
+                </div>
+                <div class="payment-method-option" onclick="selectPaymentMethod('UPI')">
+                    <span class="payment-method-name">UPI</span>
+                    <span class="payment-icon-symbol"><img src="data:image/jpeg;base64,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"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="payment-form-modal" id="paymentForm">
+            <div class="form-field-row">
+                <div class="form-input-group">
+                    <label class="input-field-label">Card Holder Name</label>
+                    <input type="text" class="text-input-box" id="cardHolderName" placeholder="Enter name" required>
+                </div>
+                <div class="form-input-group">
+                    <label class="input-field-label">Card Number</label>
+                    <input type="text" class="text-input-box" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                </div>
+            </div>
+
+            <div class="form-field-row">
+                <div class="form-input-group">
+                    <label class="input-field-label">Expiry Date</label>
+                    <input type="text" class="text-input-box" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                </div>
+                <div class="form-input-group">
+                    <label class="input-field-label">CVV</label>
+                    <input type="text" class="text-input-box" id="cvvCode" placeholder="123" maxlength="3" required>
+                </div>
+            </div>
+ 
+            <button class="form-submit-button" onclick="processPayment()">Proceed</button>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-notification-panel" id="successMessage">
+            <div class="success-checkmark-circle">
+                <span class="checkmark-icon-large">✓</span>
+            </div>
+            <div class="success-message-text">payment done successfully</div>
+           <a href="myprogram.html" style="text-decoration: none;"><div class="order-confirmation-text">Order has been placed</div></a> 
+        </div>
+    </div>
+
+        <!-- Footer Section -->
+        <div class="footer-wrapper">
+            <div class="footer-content">
+                <!-- About Us -->
+                <div class="footer-column">
+                    <div class="footer-logo-section">
+                        <div class="brand-icon">
+                            <img src="images/navlogo.png" alt="Fitness Logo">
+                        </div>
+                    </div>
+                    <h3 class="column-title">About Us</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">Who We Are</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Our Mission</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">How It Works</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Success</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Courses</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-column">
+                    <h3 class="column-title">Quick Links</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">Browse</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Packages</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Categories</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Support</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Features -->
+                <div class="footer-column">
+                    <h3 class="column-title">Feature</h3>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="#" class="footer-link">HIIT</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Strength Yoga</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Cardio</a></li>
+                        <li class="footer-link-item"><a href="#" class="footer-link">Cycling</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Social -->
+                <div class="footer-column">
+                    <h3 class="column-title">Contact & Social</h3>
+                    <div class="contact-info">
+                        123 salk Street, Chennai, TN<br>
+                        <a href="tel:+917867980688">+91-7867980-688</a><br>
+                        <a href="mailto:Fitness@fitnesscenter.com">Fitness@fitnesscenter.com</a>
+                    </div>
+                    <div class="social-section">
+                        <div class="social-title">Follow Us On:</div>
+                        <div class="social-icons">
+                            <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-google"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <img src="images/foot logo.png" alt="Gym Equipment" class="gym-equipment">
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright-text">© 2025 Fitness center. All rights reserved.</p>
+                <div class="policy-links">
+                    <a href="#" class="policy-link">Terms & Conditions</a>
+                    <span class="policy-link">|</span>
+                    <a href="#" class="policy-link">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
